@@ -1,0 +1,63 @@
+{
+  "name": "websocket-server",
+  "version": "0.0.1",
+  "description": "WebSocket Server for realtime messaging",
+  "main": "dist",
+  "scripts": {
+    "pm2": "npx pm2 start pm2.json --only websocket-dev-runner --env development --no-daemon",
+    "watch-server": "node_modules/.bin/webpack-dev-server",
+    "start-server:dev": "pm2 start pm2.json --only websocket-build-runner --env development",
+    "build-server:prod": "node_modules/.bin/cross-env NODE_ENV=production node_modules/.bin/babel src -s -D -d dist",
+    "start-server:prod": "pm2 start pm2.json --only websocket-build-runner --env production",
+    "test": "node_modules/.bin/eslint src"
+  },
+  "author": {
+    "name": "Pathompong Pechkongtong",
+    "url": "https://pattp.dev"
+  },
+  "license": "MIT",
+  "repository": "pattp/socket-server",
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0",
+    "@babel/runtime": "^7.0.0",
+    "cross-env": "^5.2.0",
+    "dotenv": "^6.0.0",
+    "errorhandler": "^1.5.0",
+    "express": "^4.16.3",
+    "express-subdomain": "^1.0.5",
+    "express-session": "^1.15.6",
+    "compression": "^1.7.3",
+    "body-parser": "^1.18.3",
+    "morgan": "^1.9.0",
+    "socket.io": "2.2.0",
+    "webpack": "^4.29.6"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/node": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "babel-loader": "^8.0.0",
+    "eslint": "^5.15.1",
+    "webpack-cli": "3.2.3",
+    "dotenv-webpack": "^1.7.0",
+    "webpack-dev-server": "^3.2.1",
+    "webpack-dev-middleware": "^3.6.1"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "parserOptions": {
+      "ecmaVersion": 7,
+      "sourceType": "module"
+    },
+    "env": {
+      "browser": true,
+      "node": true
+    },
+    "rules": {
+      "no-console": 0,
+      "no-unused-vars": 1
+    }
+  }
+}

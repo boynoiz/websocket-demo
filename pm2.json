@@ -1,0 +1,38 @@
+{
+  "apps": [
+    {
+      "name": "websocket-dev-runner",
+      "script": "./src/server.js",
+      "node_args": "--harmony",
+      "watch": ["src"],
+      "watch_options": {
+        "usePolling": true
+      },
+      "ignore_watch": [".git", "node_modules", ".vscode", "views", "dist"],
+      "interpreter": "node_modules/.bin/babel-node",
+      "exec_mode": "fork",
+      "autorestart": true,
+      "log_date_format": "YYYY-MM-DD HH:mm Z",
+      "env_development": {
+        "NODE_ENV": "development"
+      }
+    },
+    {
+      "name": "websocket-build-runner",
+      "script": "./dist/server.js",
+      "node_args": "--harmony",
+      "watch": false,
+      "instances": 4,
+      "watch_options": {
+        "usePolling": true
+      },
+      "ignore_watch": [".git", "node_modules", ".vscode", "views", "src"],
+      "exec_mode": "cluster",
+      "autorestart": true,
+      "log_date_format": "YYYY-MM-DD HH:mm Z",
+      "env_production": {
+        "NODE_ENV": "production"
+      }
+    }
+  ]
+}

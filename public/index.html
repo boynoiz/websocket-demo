@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"></script>
+    <script>
+      var socket = io("https://ws.localhost.test", {
+        path: "/",
+        transports: ["websocket"]
+      });
+
+      var user_data = {
+        person_id : 1
+      };
+
+      socket.on("connection", function () {
+        console.log("Connecting to server...")
+
+        socket.emit('user_data', user_data)
+      });
+
+      socket.on("notification", function (data) {
+        addMessage(data.person_id, data.message, data.created_at);
+
+      });
+
+      socket.on("error", console.error.bind(console));
+      socket.on("message", console.log.bind(console));
+
+      function addMessage(person_id, message, created_at) {
+        var text = document.createTextNode("Person : " + person_id + ", Message : " + message + ", Created At : " + created_at),
+          el = document.createElement("li"),
+          messages = document.getElementById("messages");
+
+        el.appendChild(text);
+        messages.appendChild(el);
+      }
+    </script>
+  </head>
+  <body>
+    <ul id="messages"></ul>
+  </body>
+</html>
